@@ -49,14 +49,6 @@
         <flyway.locations>filesystem:${project.basedir}/db/migration</flyway.locations>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>maven.seasar.org</id>
-            <name>The Seasar Foundation Maven Repository</name>
-            <url>http://maven.seasar.org/maven2</url>
-        </repository>
-    </repositories>
-
     <dependencies>
 		<!-- logging -->
         <dependency>
@@ -205,11 +197,6 @@
             <version>4.6.2</version>
         </dependency>
 		<!-- Utils -->
-        <dependency>
-            <groupId>org.seasar.util</groupId>
-            <artifactId>s2util</artifactId>
-            <version>0.0.1</version>
-        </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
