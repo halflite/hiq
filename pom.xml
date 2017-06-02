@@ -152,6 +152,12 @@
             <groupId>org.pac4j</groupId>
             <artifactId>pac4j-oauth</artifactId>
             <version>${version.pac4j}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-databind</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.pac4j</groupId>
@@ -188,11 +194,11 @@
             <version>${version.postgresql}</version>
         </dependency>
 		<!-- Webjars -->
-		<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>Honoka</artifactId>
-			<version>3.3.5-d</version>
-		</dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>Honoka</artifactId>
+            <version>3.3.5-d</version>
+        </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>font-awesome</artifactId>
@@ -273,10 +279,22 @@
 			<!-- Eclipse -->
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.10</version>
                 <configuration>
                     <wtpversion>2.0</wtpversion>
                     <downloadSources>true</downloadSources>
                     <downloadJavadocs>true</downloadJavadocs>
+                    <additionalConfig>
+                        <file>
+                            <name>.settings/org.eclipse.wst.common.project.facet.core.xml</name>
+                            <content><![CDATA[
+<faceted-project>
+<fixed facet="jst.java"/>
+<installed facet="jst.java" version="1.8"/>
+</faceted-project>
+                    ]]></content>
+                        </file>
+                    </additionalConfig>
                 </configuration>
             </plugin>
 			<!-- QueryDSL -->

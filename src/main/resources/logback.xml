@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE logback>
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<ImmediateFlush>true</ImmediateFlush>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</layout>
+	</appender>
+
+    <logger name="org.eclipse.persistence.queries" level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </logger>
+     <logger name="com.querydsl.jpa.impl" level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <logger name="net.halflite.hiq" level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </logger>
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>
