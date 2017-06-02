@@ -1,2 +1,3 @@
-# hiq
-HIQ - Yet Another Hatena Haiku
+# HIQ - Yet Another Hatena Haiku
+
+java based modern bbs.

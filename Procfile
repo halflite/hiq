@@ -1,0 +1,1 @@
+web: java -jar target/hiq-1.0-SNAPSHOT.jar
