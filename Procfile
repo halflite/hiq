@@ -1,1 +1,1 @@
-web: java -jar target/target/hiq-1.0-SNAPSHOT-jar-with-dependencies.jar
+web: java -jar target/hiq-1.0-SNAPSHOT-jar-with-dependencies.jar
