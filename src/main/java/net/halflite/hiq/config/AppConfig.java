@@ -12,6 +12,12 @@ public class AppConfig {
 	/** Webjarsのリソースパス */
 	public static final String RESOURCES_PATH = "/META-INF/resources/";
 
+	/** デフォルトのローカルホスト(主にローカル試験用) */
+	public static final String DEFAULT_LOCALHOST = "http://localhost/";
+
+	/** デフォルトのポート(主にローカル試験用) */
+	public static final String DEFAULT_PORT = "8080";
+
 	private AppConfig() {
 	}
 
