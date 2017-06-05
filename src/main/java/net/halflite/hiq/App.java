@@ -31,7 +31,7 @@ public class App {
 		int port = Integer.valueOf(envPort);
 		LOGGER.info("Server PORT:{}", port);
 
-		URI uri = UriBuilder.fromUri("http://localhost/").port(port).build();
+		URI uri = UriBuilder.fromUri("http://0.0.0.0/").port(port).build();
 		HttpServer server = GrizzlyHttpServerFactory.createHttpServer(uri, AppConfig.create(), false);
 
 		HttpHandler handler = new CLStaticHttpHandler(HttpServer.class.getClassLoader(), RESOURCES_PATH, VIEW_PATH);
