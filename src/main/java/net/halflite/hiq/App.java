@@ -41,7 +41,9 @@ public class App {
 		// 環境変数をまとめた連想配列を作成
 		Map<String, String> props = new HashMap<>(System.getenv());
 		props.putAll(Maps.fromProperties(System.getProperties()));
-		LOGGER.info("env:{}", props);
+		props.entrySet()
+				.stream()
+				.forEach(e -> LOGGER.info("env:{}", e));
 
 		// ポート番号
 		int port = Integer.valueOf(props.getOrDefault("SERVER_PORT", DEFAULT_PORT));
