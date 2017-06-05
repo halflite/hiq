@@ -6,6 +6,7 @@ import static net.halflite.hiq.config.AppConfig.RESOURCES_PATH;
 import static net.halflite.hiq.config.AppConfig.VIEW_PATH;
 
 import java.net.URI;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.ws.rs.core.UriBuilder;
@@ -32,11 +33,15 @@ public class App {
 	private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
 	public static void main(String[] args) {
-		Map<String, String> props = Maps.fromProperties(System.getProperties());
+		// 環境変数をまとめた連想配列を作成
+		Map<String, String> props = new HashMap<>(System.getenv());
+		props.putAll(Maps.fromProperties(System.getProperties()));
 
+		// ポート番号
 		int port = Integer.valueOf(props.getOrDefault("SERVER_PORT", DEFAULT_PORT));
 		LOGGER.info("Server PORT:{}", port);
 
+		// ローカルホスト
 		String localhost = props.getOrDefault("SERVER_LOCALHOST", DEFAULT_LOCALHOST);
 		LOGGER.info("localhost:{}", localhost);
 
