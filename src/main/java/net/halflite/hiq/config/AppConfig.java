@@ -12,12 +12,6 @@ public class AppConfig {
 	/** Webjarsのリソースパス */
 	public static final String RESOURCES_PATH = "/META-INF/resources/";
 
-	/** デフォルトのローカルホスト(主にローカル試験用) */
-	public static final String DEFAULT_LOCALHOST = "http://localhost/";
-
-	/** デフォルトのポート(主にローカル試験用) */
-	public static final String DEFAULT_PORT = "8080";
-
 	private AppConfig() {
 	}
 
@@ -31,5 +25,28 @@ public class AppConfig {
 				.packages("net.halflite.hiq.resource")
 				.register(FreemarkerMvcFeature.class)
 				.property(FreemarkerMvcFeature.TEMPLATE_BASE_PATH, VIEW_PATH);
+	}
+
+	/** サーバーの初期値を持つ列挙型 */
+	public static enum DefaultServerEnvType {
+		/** ローカルホストの文字列 */
+		LOCALHOST("http://localhost/"),
+		/** ポート番号 */
+		PORT("8080");
+
+		/** 初期値 */
+		private final String defaultValue;
+
+		private DefaultServerEnvType(String defaultValue) {
+			this.defaultValue = defaultValue;
+		}
+
+		public String getKey() {
+			return this.toString();
+		}
+
+		public String getDefaultValue() {
+			return this.defaultValue;
+		}
 	}
 }
