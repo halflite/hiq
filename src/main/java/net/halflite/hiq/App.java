@@ -27,8 +27,9 @@ public class App {
 	private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
 	public static void main(String[] args) {
-		String envPort = System.getProperties().getOrDefault("PORT", "9998").toString();
+		String envPort = System.getProperties().getOrDefault("server.port", "9998").toString();
 		int port = Integer.valueOf(envPort);
+		LOGGER.info("Server PORT:{}", port);
 
 		URI uri = UriBuilder.fromUri("http://localhost/").port(port).build();
 		HttpServer server = GrizzlyHttpServerFactory.createHttpServer(uri, AppConfig.create(), false);
