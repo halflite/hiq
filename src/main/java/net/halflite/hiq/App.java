@@ -17,6 +17,7 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.google.common.collect.Maps;
 
@@ -33,6 +34,10 @@ public class App {
 	private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
 	public static void main(String[] args) {
+		// jul-to-slf4j init.
+		SLF4JBridgeHandler.removeHandlersForRootLogger();
+		SLF4JBridgeHandler.install();
+
 		// 環境変数をまとめた連想配列を作成
 		Map<String, String> props = new HashMap<>(System.getenv());
 		props.putAll(Maps.fromProperties(System.getProperties()));
