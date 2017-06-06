@@ -27,7 +27,8 @@
     </logger>
     <logger
         name="net.halflite.hiq"
-        level="DEBUG">
+        level="DEBUG"
+        additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
     <root>
