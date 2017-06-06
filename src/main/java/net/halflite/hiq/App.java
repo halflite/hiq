@@ -4,7 +4,6 @@ import static net.halflite.hiq.config.AppConfig.RESOURCES_PATH;
 import static net.halflite.hiq.config.AppConfig.VIEW_PATH;
 
 import java.net.URI;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.ws.rs.core.UriBuilder;
@@ -17,10 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
-import com.google.common.collect.Maps;
-
 import net.halflite.hiq.config.AppConfig;
-import net.halflite.hiq.config.AppConfig.DefaultServerEnvType;
+import net.halflite.hiq.constant.ServerEnvType;
+import net.halflite.hiq.util.EnvUtils;
 
 /**
  * アプリケーション起動クラス
@@ -38,14 +36,17 @@ public class App {
 		SLF4JBridgeHandler.install();
 
 		// 環境変数取得
-		Map<String, String> props = getPropertie();
+		Map<String, String> properties = EnvUtils.allProperties();
+		properties.entrySet()
+				.stream()
+				.forEach(e -> LOGGER.info("env:{}", e));
 
 		// ポート番号
-		int port = Integer.valueOf(getPropertieValue(props, DefaultServerEnvType.PORT));
+		int port = Integer.valueOf(ServerEnvType.PORT.value(properties));
 		LOGGER.info("Server PORT:{}", port);
 
 		// ローカルホスト
-		String localhost = getPropertieValue(props, DefaultServerEnvType.LOCALHOST);
+		String localhost = ServerEnvType.LOCALHOST.value(properties);
 		LOGGER.info("localhost:{}", localhost);
 
 		URI uri = UriBuilder.fromUri(localhost).port(port).build();
@@ -60,26 +61,5 @@ public class App {
 			LOGGER.warn("Server fault.", e);
 			server.shutdownNow();
 		}
-	}
-
-	/**
-	 * 環境変数をまとめた連想配列を作って返します
-	 *
-	 * @return
-	 */
-	private static Map<String, String> getPropertie() {
-		// 環境変数をまとめた連想配列を作成
-		Map<String, String> props = new HashMap<>();
-		props.putAll(System.getenv());
-		props.putAll(Maps.fromProperties(System.getProperties()));
-		// ログ出力
-		props.entrySet()
-				.stream()
-				.forEach(e -> LOGGER.info("env:{}", e));
-		return props;
-	}
-
-	private static String getPropertieValue(Map<String, String> props, DefaultServerEnvType type) {
-		return props.getOrDefault(type.getKey(), type.getDefaultValue());
 	}
 }
