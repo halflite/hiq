@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -DSERVER_PORT=$PORT -jar target/hiq-1.0-SNAPSHOT.jar
+web: java $JAVA_OPTS -jar target/hiq-1.0-SNAPSHOT.jar
