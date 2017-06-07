@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -37,6 +38,7 @@ public class DateHelper {
 		return ZonedDateTime.now(zone).withHour(0).withMinute(0).withSecond(0).withNano(0).toInstant();
 	}
 
+	@Inject
 	public DateHelper(@Named("TZ") String tz) {
 		this.zone = ZoneId.of(tz);
 	}
