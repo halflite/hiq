@@ -10,13 +10,13 @@ import javax.ws.rs.core.UriInfo;
 import org.glassfish.jersey.server.mvc.Viewable;
 
 /**
- * トップページのリソースクラス
+ * メインページのリソースクラス
  *
  * @author halflite
  *
  */
-@Path("/")
-public class IndexResource {
+@Path("page")
+public class PageResource {
 
 	/**
 	 * インデックス
@@ -26,6 +26,6 @@ public class IndexResource {
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public Viewable index(@Context UriInfo uriInfo) {
-		return new Viewable("/index");
+		return new Viewable("/page");
 	}
 }

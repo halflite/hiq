@@ -13,5 +13,6 @@ public class AppModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		install(new EnvModule());
+		install(new AuthModule());
 	}
 }

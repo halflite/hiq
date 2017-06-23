@@ -37,9 +37,7 @@ public class App {
 
 		// 環境変数取得
 		Map<String, String> properties = EnvUtils.allProperties();
-		properties.entrySet()
-				.stream()
-				.forEach(e -> LOGGER.info("env:{}", e));
+		properties.entrySet().stream().forEach(e -> LOGGER.info("env:{}", e));
 
 		// ポート番号
 		int port = Integer.valueOf(ServerEnvType.PORT.value(properties));
@@ -50,10 +48,10 @@ public class App {
 		LOGGER.info("localhost:{}", localhost);
 
 		URI uri = UriBuilder.fromUri(localhost).port(port).build();
-		HttpServer server = GrizzlyHttpServerFactory.createHttpServer(uri, AppConfig.create(), false);
+		HttpServer server = GrizzlyHttpServerFactory.createHttpServer(uri, new AppConfig(), false);
 
 		HttpHandler handler = new CLStaticHttpHandler(HttpServer.class.getClassLoader(), RESOURCES_PATH, VIEW_PATH);
-		server.getServerConfiguration().addHttpHandler(handler, "/");
+		server.getServerConfiguration().addHttpHandler(handler, "/static");
 
 		try {
 			server.start();
