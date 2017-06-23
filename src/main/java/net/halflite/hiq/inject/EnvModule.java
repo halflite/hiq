@@ -28,9 +28,6 @@ public class EnvModule extends AbstractModule {
 	/** DIする要素のキー */
 	private final static Collection<String> BIND_KEYS = ImmutableSet.<String> of("TZ",
 			"AUTH_CALLBACK_URL",
-			"DATABASE_URL",
-			"JDBC_DATABASE_USERNAME",
-			"JDBC_DATABASE_PASSWORD",
 			"TWITTER_API_KEY",
 			"TWITTER_API_SECRET");
 

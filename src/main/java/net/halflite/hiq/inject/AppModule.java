@@ -14,5 +14,6 @@ public class AppModule extends AbstractModule {
 	protected void configure() {
 		install(new EnvModule());
 		install(new AuthModule());
+		install(new PersistenceModule());
 	}
 }
