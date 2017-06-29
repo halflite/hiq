@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.AbstractModule;
 
-import jersey.repackaged.com.google.common.base.Predicates;
-import jersey.repackaged.com.google.common.collect.Maps;
 import net.halflite.hiq.util.EnvUtils;
 
 /**
@@ -33,9 +31,8 @@ public class EnvModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		Map<String, String> allProperties = EnvUtils.allProperties();
-		Map<String, String> properties = Maps.filterKeys(allProperties, Predicates.in(BIND_KEYS));
-		LOGGER.info("env:{}", properties);
+		Map<String, String> properties = EnvUtils.properties(BIND_KEYS);
+		LOGGER.debug("env:{}", properties);
 
 		bindProperties(binder(), properties);
 	}

@@ -9,6 +9,9 @@ import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.collect.ImmutableMap;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -28,6 +31,8 @@ import net.halflite.hiq.util.EnvUtils;
  *
  */
 public class PersistenceModule extends AbstractModule {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(PersistenceModule.class);
 
 	/** JPAのDBユニット名 */
 	private static final String UNIT = "dbunit";
@@ -53,10 +58,12 @@ public class PersistenceModule extends AbstractModule {
 	 */
 	private Map<String, String> dbProperties() {
 		Map<String, String> props = EnvUtils.properties(PROPS_KEYS.keySet());
-		return props.entrySet()
+		Map<String, String> dbPoroperties = props.entrySet()
 				.stream()
 				.map(e -> Maps.immutableEntry(PROPS_KEYS.get(e.getKey()), e.getValue()))
 				.collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+		LOGGER.debug("dbPoroperties:{}", dbPoroperties);
+		return dbPoroperties;
 	}
 
 	@Provides

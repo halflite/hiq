@@ -6,6 +6,7 @@ import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 import java.net.URI;
 import java.util.Optional;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.WebApplicationException;
@@ -20,6 +21,9 @@ import org.pac4j.oauth.profile.twitter.TwitterProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.halflite.hiq.entity.Account;
+import net.halflite.hiq.logic.AuthenticateLogic;
+
 /**
  * 認証コールバックのリソースクラス
  *
@@ -30,6 +34,8 @@ import org.slf4j.LoggerFactory;
 public class AuthenticateResource {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticateResource.class);
+
+	private final AuthenticateLogic authenticateLogic;
 
 	@GET
 	@Pac4JSecurity(clients = "TwitterClient", authorizers = "isAuthenticated")
@@ -44,11 +50,17 @@ public class AuthenticateResource {
 	@Pac4JCallback(skipResponse = true, defaultUrl = "/page")
 	public Response callback(@Pac4JProfile Optional<TwitterProfile> profile, @Context UriInfo uriInfo) {
 		TwitterProfile twitterProfile = profile.orElseThrow(() -> new WebApplicationException(UNAUTHORIZED));
-		LOGGER.debug("Returning infos for {}", twitterProfile);
+		Account account = authenticateLogic.findAccountOrCreate(twitterProfile);
+		LOGGER.debug("Returning infos for {}, Accout:{}", twitterProfile, account);
 		URI location = uriInfo.getBaseUriBuilder()
 				.path(PageResource.class)
 				.path("/")
 				.build();
 		return Response.status(FOUND).location(location).build();
+	}
+
+	@Inject
+	public AuthenticateResource(AuthenticateLogic authenticateLogic) {
+		this.authenticateLogic = authenticateLogic;
 	}
 }
