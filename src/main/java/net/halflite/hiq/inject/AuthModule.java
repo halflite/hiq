@@ -31,14 +31,13 @@ public class AuthModule extends AbstractModule {
 	 *            認証コールバック用URI
 	 * @param twitterClient
 	 *            Twitter用認証クライアントオブジェクト
-	 * @return
+	 * @return Pac4Jの設定オブジェクト
 	 */
 	@Provides
 	@Singleton
 	protected Config providePac4jConfig(@Named("AUTH_CALLBACK_URL") String callback,
 			TwitterClient twitterClient) {
-		Config config = new Config(callback, twitterClient);
-		return config;
+		return new Config(callback, twitterClient);
 	}
 
 	/**

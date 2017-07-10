@@ -1,5 +1,7 @@
 package net.halflite.hiq.entity;
 
+import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Optional;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.eclipse.persistence.annotations.Customizer;
 
 import net.halflite.hiq.jpa.InstantTimestampConverter;
@@ -45,5 +48,10 @@ public abstract class AbstractUpdatableEntity implements Serializable {
 	 */
 	public boolean isUpdatable() {
 		return Optional.ofNullable(this.id).isPresent();
+	}
+
+	@Override
+	public String toString() {
+		return reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 }
