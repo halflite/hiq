@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.AbstractModule;
 
-import jersey.repackaged.com.google.common.base.Predicates;
-import jersey.repackaged.com.google.common.collect.Maps;
 import net.halflite.hiq.util.EnvUtils;
 
 /**
@@ -28,17 +26,13 @@ public class EnvModule extends AbstractModule {
 	/** DIする要素のキー */
 	private final static Collection<String> BIND_KEYS = ImmutableSet.<String> of("TZ",
 			"AUTH_CALLBACK_URL",
-			"DATABASE_URL",
-			"JDBC_DATABASE_USERNAME",
-			"JDBC_DATABASE_PASSWORD",
 			"TWITTER_API_KEY",
 			"TWITTER_API_SECRET");
 
 	@Override
 	protected void configure() {
-		Map<String, String> allProperties = EnvUtils.allProperties();
-		Map<String, String> properties = Maps.filterKeys(allProperties, Predicates.in(BIND_KEYS));
-		LOGGER.info("env:{}", properties);
+		Map<String, String> properties = EnvUtils.properties(BIND_KEYS);
+		LOGGER.debug("env:{}", properties);
 
 		bindProperties(binder(), properties);
 	}

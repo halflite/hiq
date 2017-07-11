@@ -22,7 +22,14 @@
     </logger>
     <logger
         name="com.querydsl.jpa.impl"
-        level="DEBUG">
+        level="DEBUG"
+        additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <logger
+        name="org.pac4j.core"
+        level="DEBUG"
+        additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
     <logger
